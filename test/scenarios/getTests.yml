@@ -1,0 +1,9 @@
+config:
+  target: "http://host.docker.internal:8080"
+  phases:
+    - duration: 60
+      arrivalRate: 250
+scenarios:
+  - flow:
+      - get:
+          url: "/api/test/1"

@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+
+  artillery:
+    cpuset: "3"
+    build: ./test
+    working_dir: /
+    command: /bin/bash -c "artillery run /app/getTests.yml -o /app/results/report.json"
+    environment:
+      - TEST_APP_URL
+    volumes:
+      - ./test/scenarios:/app
+      - ./test/results:/app/results

@@ -1,0 +1,13 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+
+CREATE TABLE `test` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `value` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `test`
+  ADD PRIMARY KEY (`id`);
+COMMIT;

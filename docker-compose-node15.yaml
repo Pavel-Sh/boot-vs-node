@@ -1,0 +1,69 @@
+version: '3.3'
+services:
+  node15:
+    cpuset: "0"
+    build: ./node
+    depends_on:
+      - db
+    environment:
+      MYSQL_HOST: ${DB_HOST}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8080:8080"
+    command: >
+      /bin/bash -c "
+        while ! nc -z db 3306;
+        do
+          echo sleeping;
+          sleep 1;
+        done;
+        node index.js
+      "
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 400M
+
+  db:
+    cpuset: "1"
+    image: mysql:5.7
+    restart: "no"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - my-db:/var/lib/mysql
+      - ./db/init_schema.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./db/init_data.sql:/docker-entrypoint-initdb.d/2.sql
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 512M
+
+  phpmyadmin:
+    cpuset: "2"
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: "no"
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: ${DB_HOST}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 512M
+
+volumes:
+  my-db:
