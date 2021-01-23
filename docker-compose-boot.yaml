@@ -25,7 +25,7 @@ services:
       resources:
         limits:
           cpus: 1
-          memory: 400M
+          memory: 512M
 
   db:
     cpuset: "1"

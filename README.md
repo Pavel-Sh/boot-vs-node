@@ -16,6 +16,8 @@ a simple web server which provides 2 endpoints:
 * insert test object into mysql db
 
 ## How to perform tests locally
+Build spring boot application:
+`gradlew build` 
 Launch either spring boot
 `docker-compose -f docker-compose-boot.yaml --compatibility up --build --force-recreate` 
 or node js app:
