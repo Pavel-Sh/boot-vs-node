@@ -15,6 +15,8 @@ a simple web server which provides 2 endpoints:
 * retrieve test object from mysql db
 * insert test object into mysql db
 
+## Results
+
 ## How to perform tests locally
 Build spring boot application:
 `gradlew build` 
