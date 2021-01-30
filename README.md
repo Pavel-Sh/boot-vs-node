@@ -16,7 +16,7 @@ a simple web server which provides 2 endpoints:
 * insert test object into mysql db
 
 ## Results
-TODO provide results 
+TODO provide results based on several measurements
 
 ## How to perform tests locally
 Build spring boot application:
